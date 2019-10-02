@@ -6,3 +6,5 @@
 [Ubuntu18+cuda9.0+cudnn+tensorflow+GPU（1080Ti）+protobuf-3.6.0](https://blog.csdn.net/m0_37407756/article/details/80769952)
 
 [Tensorflow Serving+docker使用记录](https://zhuanlan.zhihu.com/p/58474810)
+
+[nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
