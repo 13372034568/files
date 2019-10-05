@@ -24,4 +24,4 @@ lshw -numeric -C display
 
 <div align="center">
 <img src="./images/查看显卡信息.png">
-<br>
+<div>
