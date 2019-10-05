@@ -22,3 +22,6 @@ lsmod | grep nouveau # 没输出代表禁用生效,要在重启之后执行
 
 lshw -numeric -C display
 
+<div align="center">
+<img src="./images/查看显卡信息.png">
+<br>
