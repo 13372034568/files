@@ -25,7 +25,7 @@ lsmod | grep nouveau # 没输出代表禁用生效,要在重启之后执行
 lshw -numeric -C display
 ```
 截图如下
-<div align="center">
+<div>
 <img src="./images/查看显卡信息.png">
 <div>
 
@@ -41,7 +41,7 @@ sudo ./NVIDIA-Linux-x86_64-430.50.run -no-opengl-files -no-x-checks -no-nouveau-
 nvidia-smi
 ```
 截图如下
-<div align="center">
+<div>
 <img src="./images/nvidia-smi.png">
 <div>
 
