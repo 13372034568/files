@@ -8,10 +8,18 @@
 
 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
 
-[Tensorflow Serving With Docker](https://zhuanlan.zhihu.com/p/64413178)
+（较为官方的文档）[Tensorflow Serving With Docker](https://zhuanlan.zhihu.com/p/64413178)
+
+[nvidia-dokcer常见问题总汇(博主踩过的各种各样的坑)](https://blog.csdn.net/qq_38079008/article/details/83620573)
+
+[搭建nvidia-docker运行环境-Ubutu16.04](https://blog.csdn.net/arag2009/article/details/78464275)
+
+（直指nvidia-docker用法）[Docker + Tensorflow serving 多模型在线部署](https://blog.csdn.net/u012433049/article/details/89354361)
 
 [TensorFlow Serving使用指南](https://www.jianshu.com/p/d11a5c3dc757)
 
+
+# TensorFlow 高级用法
 [TensorFlow之estimator详解](https://zhuanlan.zhihu.com/p/74857888)
 
 
@@ -22,6 +30,4 @@
 
 [Ubuntu18.04下安装(1080Ti)NVIDIA驱动、CUDA9.2、cuDNN7.3进行GPU加速](https://blog.csdn.net/famirtse/article/details/82875590)
 
-[nvidia-dokcer常见问题总汇(博主踩过的各种各样的坑)](https://blog.csdn.net/qq_38079008/article/details/83620573)
 
-[搭建nvidia-docker运行环境-Ubutu16.04](https://blog.csdn.net/arag2009/article/details/78464275)
