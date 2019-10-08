@@ -10,7 +10,7 @@ sudo gedit /etc/modprobe.d/blacklist.conf
 ```
 在最后一行添加
 ```
-blacklist nouneau
+blacklist nouveau
 ```
 执行
 ```
