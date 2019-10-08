@@ -1,0 +1,2 @@
+sed -i 's/\r$//' ./rm_container.sh
+sed -i 's/\r$//' ./start.sh
