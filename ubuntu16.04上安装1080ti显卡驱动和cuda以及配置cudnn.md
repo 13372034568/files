@@ -34,7 +34,7 @@ lshw -numeric -C display
 6.给安装程序权限
 ```
 sudo chmod 777 NVIDIA-Linux-x86_64-430.50.run
-sudo ./NVIDIA-Linux-x86_64-430.50.run -no-opengl-files -no-x-checks -no-nouveau-check
+sudo ./NVIDIA-Linux-x86_64-430.50.run -no-opengl-files -no-x-check -no-nouveau-check
 ```
 7.驱动测试
 ```
