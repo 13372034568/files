@@ -21,3 +21,7 @@
 [Ubuntu18+cuda9.0+cudnn+tensorflow+GPU（1080Ti）+protobuf-3.6.0](https://www.cnblogs.com/youpeng/p/10887346.html)
 
 [Ubuntu18.04下安装(1080Ti)NVIDIA驱动、CUDA9.2、cuDNN7.3进行GPU加速](https://blog.csdn.net/famirtse/article/details/82875590)
+
+[nvidia-dokcer常见问题总汇(博主踩过的各种各样的坑)](https://blog.csdn.net/qq_38079008/article/details/83620573)
+
+[搭建nvidia-docker运行环境-Ubutu16.04](https://blog.csdn.net/arag2009/article/details/78464275)
