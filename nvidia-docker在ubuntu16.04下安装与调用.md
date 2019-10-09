@@ -1,6 +1,17 @@
 # 安装docker
 ```
-apt install docker 
+• step 1: 安装必要的一些系统工具
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+• step 2: 安装GPG证书
+curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+• Step 3: 写入软件源信息
+sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+• Step 4: 更新并安装 docker-ce
+sudo apt-get -y update
+sudo apt-get -y install docker-ce
+• 验证
+sudo service docker status (检查Docker服务的状态) 
+sudo docker run hello-world (测试Docker安装是否成功)
 ```
 
 # 安装nvidia-docker
