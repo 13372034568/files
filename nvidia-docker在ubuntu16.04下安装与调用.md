@@ -96,9 +96,9 @@ model_config_list: {
 ```
 import multiprocessing
 import os
+import random
+import threading
 import time
-
-import grpc
 from grpc.beta import implementations
 import tensorflow as tf
 import json
@@ -106,9 +106,11 @@ from datetime import datetime
 # from tensorflow_serving.apis import predict_pb2
 # from tensorflow_serving.apis import prediction_service_pb2_grpc
 import numpy as np
-from tensorboard._vendor.tensorflow_serving.apis import prediction_service_pb2_grpc, predict_pb2
+# from tensorboard._vendor.tensorflow_serving.apis import prediction_service_pb2_grpc, predict_pb2
 from PIL import Image
 import cv2
+from tensorflow_serving.apis import prediction_service_pb2_grpc, predict_pb2
+
 import core.utils as utils
 
 
@@ -173,15 +175,27 @@ def process_function(input_size, model_result, f_items, p_id, g_lst=None, share_
         share_lock.release()
 
 
-def main():
-    grpc_options = [
-        # {'host': '127.0.0.1', 'port': 8500, 'model_name': 'yolov3'},
-        {'host': '220.178.172.160', 'port': 58000, 'model_name': 'yolov3'},
-    ] * 6
+# {'host': '220.178.172.160', 'port': 58000, 'model_name': 'yolov3'},
+def g_options():
+    grpc_options_cpu = [
+                           {'host': '192.168.0.159', 'port': 8000, 'model_name': 'yolov3'},
+                       ] * 6
+    grpc_options_gpu = [
+                           {'host': '192.168.0.159', 'port': 8001, 'model_name': 'yolov3'},
+                       ] * 4
+    grpc_options = []
+    if grpc_options_cpu:
+        grpc_options.extend(grpc_options_cpu)
+    if grpc_options_gpu:
+        grpc_options.extend(grpc_options_gpu)
+    random.shuffle(grpc_options)
     grpc_cnt = len(grpc_options)
+    return grpc_options, grpc_cnt
+
+
+def g_model_results(grpc_options, grpc_cnt):
     dir_path_src = 'img_detect_all'
     dir_path_dst = 'img_out'
-    input_size = 416
     fns = list(os.listdir(dir_path_src))
     f_items_lst = [[] for _ in range(grpc_cnt)]
     for e, fn in enumerate(fns):
@@ -192,7 +206,62 @@ def main():
     model_results = [ModelResult(host=grpc_option['host'],
                                  port=grpc_option['port'],
                                  model_name=grpc_option['model_name']) for grpc_option in grpc_options]
+    return model_results, f_items_lst
 
+
+def g_result(share_var):
+    share_var = list(share_var)
+    share_var.sort(key=lambda x: x['p_name'], reverse=False)
+    ct_max = 0
+    img_cnt = 0
+    for result in share_var:
+        print('%s，平均时间为:%2f秒' % (result['p_name'], result['at']))
+        ct_max = max(ct_max, result['ct'])
+        img_cnt += result['img_cnt']
+    g_at = ct_max / img_cnt
+    print('总平均耗时为:%2f秒' % g_at)
+
+
+def main_multi_thread():
+    class MyThread(threading.Thread):
+        def __init__(self, input_size, model_result, f_items, p_id, g_lst=None, share_var=None, share_lock=None):
+            threading.Thread.__init__(self)
+            self.input_size = input_size
+            self.model_result = model_result
+            self.f_items = f_items
+            self.p_id = p_id
+            self.g_lst = g_lst
+            self.share_var = share_var
+            self.share_lock = share_lock
+
+        def run(self):
+            process_function(self.input_size, self.model_result, self.f_items, self.p_id, self.g_lst, self.share_var,
+                             self.share_lock)
+
+    grpc_options, grpc_cnt = g_options()
+    model_results, f_items_lst = g_model_results(grpc_options, grpc_cnt)
+    input_size = 416
+    if grpc_cnt == 1:
+        share_var = []
+        process_function(input_size, model_results[0], f_items_lst[0], p_id='单线程', g_lst=share_var)
+    else:
+        share_var = []
+        share_lock = threading.Lock()
+        threads = []
+        for i in range(grpc_cnt):
+            t = MyThread(input_size, model_results[i], f_items_lst[i], '线程%d' % i,
+                         None, share_var, share_lock)
+            threads.append(t)
+            t.start()
+        for t in threads:
+            t.join()
+    g_result(share_var)
+
+
+def main_multi_process():
+    grpc_options, grpc_cnt = g_options()
+    model_results, f_items_lst = g_model_results(grpc_options, grpc_cnt)
+    input_size = 416
     if grpc_cnt == 1:
         share_var = []
         process_function(input_size, model_results[0], f_items_lst[0], p_id='单进程', g_lst=share_var)
@@ -207,19 +276,11 @@ def main():
                                                 None, share_var, share_lock))
         pool.close()
         pool.join()
-    share_var = list(share_var)
-    share_var.sort(key=lambda x: x['p_name'], reverse=False)
-    ct_max = 0
-    img_cnt = 0
-    for result in share_var:
-        print('%s，平均时间为:%2f秒' % (result['p_name'], result['at']))
-        ct_max = max(ct_max, result['ct'])
-        img_cnt += result['img_cnt']
-    g_at = ct_max / img_cnt
-    print('总平均耗时为:%2f秒' % g_at)
+    g_result(share_var)
 
 
 if __name__ == '__main__':
-    main()
+    # main_multi_thread()
+    main_multi_process()
 
 ```
