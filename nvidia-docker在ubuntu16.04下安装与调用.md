@@ -30,7 +30,8 @@ $ sudo systemctl restart docker
 
 # Test nvidia-smi with the latest official CUDA image
 docker run --runtime=nvidia --rm nvidia/cuda:9.2-base nvidia-smi
-
+```
+```
 如果在此处出现错误（docker: Error response from daemon: Unknown runtime specified nvidia.），则尝试：
 sudo apt-get install -y nvidia-docker2
 sudo pkill -SIGHUP dockerd
