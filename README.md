@@ -31,3 +31,6 @@
 [Ubuntu18.04下安装(1080Ti)NVIDIA驱动、CUDA9.2、cuDNN7.3进行GPU加速](https://blog.csdn.net/famirtse/article/details/82875590)
 
 
+# nginx+grpc+docker
+[nginx grpc streaming负载均衡的排坑和思考](http://xiaorui.cc/2019/07/27/nginx-grpc-streaming%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%8E%92%E5%9D%91%E5%92%8C%E6%80%9D%E8%80%83/)
+
