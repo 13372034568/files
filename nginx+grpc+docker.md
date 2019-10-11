@@ -4,6 +4,7 @@ nginx在1.13版本之后可以支持grpc的负载均衡
 # 编译和安装nginx
 参考链接：
 ubuntu16.04源码编译安装nginx1.14.2：https://www.cnblogs.com/xwgcxk/p/10973645.html
+
 源码编译更新nginx到最新版本，并开始nginx支持http2协议模块：https://yq.aliyun.com/articles/117130?t=t1
 
 解压后，进入nginx目录,执行
@@ -70,7 +71,9 @@ nginx
 # 修改nginx.conf,设置grpc负载
 参考链接：
 解决Nginx错误信息：client intended to send too large body：http://baijiahao.baidu.com/s?id=1600418962381598055&wfr=spider&for=pc
+
 【部署问题】解决Nginx: [error] open() ＂/usr/local/Nginx/logs/Nginx.pid" failed：https://www.cnblogs.com/iloverain/p/9428630.html
+
 nginx grpc streaming负载均衡的排坑和思考：http://xiaorui.cc/2019/07/27/nginx-grpc-streaming%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e7%9a%84%e6%8e%92%e5%9d%91%e5%92%8c%e6%80%9d%e8%80%83/
 ```
 在http下修改两个地方
