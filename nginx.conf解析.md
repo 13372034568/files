@@ -1,5 +1,5 @@
-
-#运行用户
+```
+（2）     #运行用户
 user www-data;    
 #启动进程,通常设置成和cpu的数量相等
 worker_processes  1;
@@ -95,3 +95,4 @@ proxy_pass  http://mysvr ;
 
      }
 }
+```
