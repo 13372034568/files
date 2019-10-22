@@ -31,7 +31,7 @@ make install
 
 配置软链接
 ```
-sudo ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+sudo ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 ```
 测试nginx配置文件是否正确
 ```
